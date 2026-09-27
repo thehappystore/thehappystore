@@ -14,20 +14,70 @@
 
     {% assign products = section.settings.collection.products %}
 
-    {% if products != blank %}
-      {% for product in products limit: section.settings.limit %}
-        {% render 'demo-product-card', product: product %}
+    {% if products == blank %}
+
+      {% assign demo_titles = 'Casual Sneakers|Trendy Handbag|Mini Foldable Drone|Smart Watch|Floral Dress|RC Stunt Car' | split: '|' %}
+      {% assign demo_prices = '₹1,299|₹999|₹2,999|₹1,499|₹1,199|₹899' | split: '|' %}
+      {% assign demo_reviews = '120|86|210|142|38|78' | split: '|' %}
+
+      {% for title in demo_titles limit: section.settings.limit %}
+        {% assign di = forloop.index0 %}
+
+        {% render 'demo-product-card',
+          title: title,
+          price: demo_prices[di],
+          compare: '₹1,799',
+          reviews: demo_reviews[di]
+        %}
+
       {% endfor %}
+
+    {% else %}
+
+      {% for product in products limit: section.settings.limit %}
+        {% render 'product-card', product: product %}
+      {% endfor %}
+
     {% endif %}
 
   </div>
 </section>
 
 {% schema %}
-{"name":"Product grid","settings":[
-{"type":"text","id":"heading","label":"Heading","default":"Trending Now 🔥"},
-{"type":"text","id":"subheading","label":"Subheading","default":"Discover what everyone’s loving right now"},
-{"type":"collection","id":"collection","label":"Collection"},
-{"type":"range","id":"limit","label":"Products","min":2,"max":12,"step":1,"default":6}
-],"presets":[{"name":"Product grid"}]}
+{
+  "name": "Product grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Trending Now 🔥"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Discover what everyone’s loving right now"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "Products",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product grid"
+    }
+  ]
+}
 {% endschema %}

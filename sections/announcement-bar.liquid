@@ -1,0 +1,15 @@
+<div class="announcement-bar">
+  <div class="page-width announcement-inner">
+    <div class="announcement-left">
+      {% for block in section.blocks %}<span {{ block.shopify_attributes }}>{{ block.settings.icon }} {{ block.settings.text }}</span>{% endfor %}
+    </div>
+    <div class="announcement-right">
+      {% if section.settings.track_text != blank %}<a href="{{ section.settings.track_link }}">{{ section.settings.track_text }}</a>{% endif %}
+      {% if section.settings.help_text != blank %}<a href="{{ section.settings.help_link }}">{{ section.settings.help_text }}</a>{% endif %}
+      <span>{{ localization.country.name }} ({{ localization.country.currency.iso_code }})</span>
+    </div>
+  </div>
+</div>
+{% schema %}
+{"name":"Announcement bar","max_blocks":4,"blocks":[{"type":"item","name":"Message","settings":[{"type":"text","id":"icon","label":"Icon","default":"🚚"},{"type":"text","id":"text","label":"Text","default":"Free Shipping on Orders Above ₹499"}]}],"settings":[{"type":"url","id":"track_link","label":"Track order link"},{"type":"text","id":"track_text","label":"Track order text","default":"Track Order"},{"type":"url","id":"help_link","label":"Help center link"},{"type":"text","id":"help_text","label":"Help center text","default":"Help Center"}],"presets":[{"name":"Announcement bar","blocks":[{"type":"item"},{"type":"item","settings":{"icon":"🎁","text":"Special Discounts Every Week"}},{"type":"item","settings":{"icon":"🛡","text":"100% Secure Payments"}}]}]}
+{% endschema %}

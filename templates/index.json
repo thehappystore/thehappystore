@@ -1,0 +1,42 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero"
+    },
+    "categories": {
+      "type": "category-cards"
+    },
+    "benefits": {
+      "type": "benefits"
+    },
+    "trending": {
+      "type": "product-grid",
+      "settings": {
+        "heading": "Trending Now \ud83d\udd25",
+        "subheading": "Discover what everyone\u2019s loving right now"
+      }
+    },
+    "promos": {
+      "type": "promo-banners"
+    },
+    "bestsellers": {
+      "type": "product-grid",
+      "settings": {
+        "heading": "Best Sellers",
+        "subheading": "Our customers\u2019 favourite picks"
+      }
+    },
+    "offer": {
+      "type": "offer-banner"
+    }
+  },
+  "order": [
+    "hero",
+    "categories",
+    "benefits",
+    "trending",
+    "promos",
+    "bestsellers",
+    "offer"
+  ]
+}

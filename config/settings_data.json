@@ -1,0 +1,14 @@
+{
+  "current": {
+    "settings": {
+      "color_primary": "#ffb400",
+      "color_accent": "#ff4b16",
+      "color_text": "#111111",
+      "color_background": "#ffffff",
+      "color_surface": "#f5f6f8",
+      "page_radius": 14,
+      "page_width": 1440,
+      "sticky_header": false
+    }
+  }
+}

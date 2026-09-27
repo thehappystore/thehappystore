@@ -1,0 +1,18 @@
+<header class="site-header">
+  <div class="page-width header-main">
+    <a class="brand" href="{{ routes.root_url }}">
+      {% if section.settings.logo != blank %}{{ section.settings.logo | image_url: width: 360 | image_tag: class:'brand-logo', alt:shop.name }}{% else %}<span class="brand-the">The</span><span class="brand-happy">Happy</span><span class="brand-store">Store</span>{% endif %}
+    </a>
+    <form class="search-box" action="{{ routes.search_url }}" method="get"><input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ section.settings.search_placeholder }}" aria-label="Search"><button aria-label="Search">⌕</button></form>
+    <div class="header-actions"><a href="{{ routes.account_url }}" class="header-action"><span class="action-icon">♙</span><span>{{ section.settings.account_text }}</span></a><a href="{{ routes.cart_url }}" class="header-action cart-link"><span class="action-icon">🛒</span><span>{{ section.settings.cart_text }}</span><b id="cart-count">{{ cart.item_count }}</b></a></div>
+  </div>
+  <div class="page-width nav-row">
+    <button class="category-trigger" type="button" data-mobile-nav>☰ <span>{{ section.settings.categories_text }}</span></button>
+    <nav class="main-nav" data-main-nav>
+      {% for link in section.settings.menu.links %}<div class="nav-item {% if link.links != blank %}has-dropdown{% endif %}"><a href="{{ link.url }}">{{ link.title }}</a>{% if link.links != blank %}<div class="nav-dropdown">{% for child in link.links %}<a href="{{ child.url }}">{{ child.title }}</a>{% endfor %}</div>{% endif %}</div>{% endfor %}
+    </nav>
+  </div>
+</header>
+{% schema %}
+{"name":"Header","settings":[{"type":"image_picker","id":"logo","label":"Logo"},{"type":"text","id":"search_placeholder","label":"Search placeholder","default":"Search for fashion, toys, gadgets and more..."},{"type":"link_list","id":"menu","label":"Main menu","default":"main-menu"},{"type":"text","id":"categories_text","label":"Categories button","default":"All Categories"},{"type":"text","id":"account_text","label":"Account text","default":"Account"},{"type":"text","id":"cart_text","label":"Cart text","default":"Cart"}],"presets":[{"name":"Header"}]}
+{% endschema %}

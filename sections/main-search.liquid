@@ -1,0 +1,5 @@
+<section class="page-width search-page">
+  <h1>Search</h1>
+  <form action="{{ routes.search_url }}" method="get" class="search-large"><input name="q" value="{{ search.terms | escape }}" placeholder="Search products..."><button>Search</button></form>
+  {% if search.performed %}<p>{{ search.results_count }} results for “{{ search.terms }}”</p><div class="product-grid">{% paginate search.results by 24 %}{% for result in search.results %}{% if result.object_type == 'product' %}{% render 'product-card', product: result %}{% endif %}{% endfor %}{{ paginate | default_pagination }}{% endpaginate %}</div>{% endif %}
+</section>

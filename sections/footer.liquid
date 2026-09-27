@@ -1,0 +1,31 @@
+<footer class="site-footer">
+  <div class="page-width footer-grid">
+    <div class="footer-brand">
+      <a class="brand footer-brand-logo" href="{{ routes.root_url }}"><span class="brand-the">The</span><span class="brand-happy">Happy</span><span class="brand-store">Store</span></a>
+      <p>{{ section.settings.tagline }}</p>
+      <p>{{ section.settings.description }}</p>
+    </div>
+    <div><h4>Shop</h4>{% for link in section.settings.shop_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}</div>
+    <div><h4>Customer Care</h4>{% for link in section.settings.care_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}</div>
+    <div><h4>About</h4>{% for link in section.settings.about_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}</div>
+    <div><h4>Follow Us</h4><div class="socials">
+      {% if section.settings.instagram != blank %}<a href="{{ section.settings.instagram }}" target="_blank" rel="noopener">Instagram</a>{% endif %}
+      {% if section.settings.facebook != blank %}<a href="{{ section.settings.facebook }}" target="_blank" rel="noopener">Facebook</a>{% endif %}
+      {% if section.settings.youtube != blank %}<a href="{{ section.settings.youtube }}" target="_blank" rel="noopener">YouTube</a>{% endif %}
+    </div></div>
+  </div>
+  <div class="page-width footer-bottom"><span>© {{ 'now' | date: '%Y' }} {{ shop.name }}</span><span>{{ section.settings.bottom_text }}</span></div>
+</footer>
+{% schema %}
+{"name":"Footer","settings":[
+{"type":"text","id":"tagline","label":"Tagline","default":"Fashion. Toys. Gadgets. And More."},
+{"type":"textarea","id":"description","label":"Description","default":"Happiness Delivered."},
+{"type":"link_list","id":"shop_menu","label":"Shop menu","default":"footer"},
+{"type":"link_list","id":"care_menu","label":"Customer care menu","default":"footer"},
+{"type":"link_list","id":"about_menu","label":"About menu","default":"footer"},
+{"type":"url","id":"instagram","label":"Instagram"},
+{"type":"url","id":"facebook","label":"Facebook"},
+{"type":"url","id":"youtube","label":"YouTube"},
+{"type":"text","id":"bottom_text","label":"Bottom text","default":"Secure shopping • Easy returns • Fast delivery"}
+]}
+{% endschema %}

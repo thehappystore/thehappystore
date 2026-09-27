@@ -1,0 +1,4 @@
+<article class="product-card">
+  <a href="#" class="product-media"><span class="discount">40% OFF</span>{{ 'product-main.jpg' | asset_url | image_tag: loading:'lazy', alt:'Demo product' }}<button class="wishlist" type="button">♡</button></a>
+  <div class="product-info"><a href="#"><h3>{{ title }}</h3></a><div class="rating">★★★★★ <span>({{ reviews }})</span></div><div class="price"><strong>{{ price }}</strong><s>{{ compare }}</s></div><button class="quick-add" type="button" onclick="return false">Add to Cart</button></div>
+</article>

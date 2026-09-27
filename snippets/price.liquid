@@ -1,0 +1,1 @@
+<div class="price"><strong>{{ product.price | money }}</strong>{% if product.compare_at_price > product.price %}<s>{{ product.compare_at_price | money }}</s>{% endif %}</div>

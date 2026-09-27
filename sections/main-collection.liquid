@@ -1,0 +1,16 @@
+<section class="page-width collection-page">
+  <div class="breadcrumbs"><a href="{{ routes.root_url }}">Home</a> / {{ collection.title }}</div>
+  <header class="collection-header">
+    <div><h1>{{ collection.title }}</h1><p>{{ collection.description }}</p></div>
+    <form class="sort-form"><label for="SortBy">Sort</label><select id="SortBy" name="sort_by" onchange="this.form.submit()">
+      {% for option in collection.sort_options %}<option value="{{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>{{ option.name }}</option>{% endfor %}
+    </select></form>
+  </header>
+  <div class="collection-layout">
+    <aside class="filters"><h3>Filter</h3><p>Use Shopify's native collection filters here if enabled for your store.</p>{% if collection.all_tags.size > 0 %}<div class="tag-list">{% for tag in collection.all_tags %}<a href="{{ routes.collections_url }}/all/{{ tag | handleize }}">{{ tag }}</a>{% endfor %}</div>{% endif %}</aside>
+    <div class="product-grid">{% paginate collection.products by section.settings.products_per_page %}{% for product in collection.products %}{% render 'product-card', product:product %}{% endfor %}{{ paginate | default_pagination }}{% endpaginate %}</div>
+  </div>
+</section>
+{% schema %}
+{"name":"Main collection","settings":[{"type":"range","id":"products_per_page","label":"Products per page","min":8,"max":36,"step":4,"default":16}],"presets":[{"name":"Main collection"}]}
+{% endschema %}

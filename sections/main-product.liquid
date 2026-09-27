@@ -1,0 +1,65 @@
+<section class="page-width product-page">
+  <div class="breadcrumbs"><a href="{{ routes.root_url }}">Home</a> / {{ product.title }}</div>
+  <div class="product-layout">
+    <div class="product-gallery">
+      <div class="thumbs">
+        {% for image in product.images %}<button data-gallery-thumb="{{ forloop.index0 }}">{{ image | image_url: width: 180 | image_tag: loading:'lazy', alt:product.title | escape }}</button>{% endfor %}
+      </div>
+      <div class="main-product-image">
+        {% if product.featured_image %}{{ product.featured_image | image_url: width: 1300 | image_tag: loading:'eager', id:'ProductMainImage', alt:product.title | escape }}{% else %}{{ 'product-main.jpg' | asset_url | image_tag: loading:'eager', id:'ProductMainImage', alt:product.title | escape }}{% endif %}
+      </div>
+    </div>
+    <div class="product-details">
+      {% if product.vendor != blank %}<p class="vendor">{{ product.vendor }}</p>{% endif %}
+      <h1>{{ product.title }}</h1>
+      <div class="rating large">★★★★★ <b>{{ section.settings.rating }}</b> <span>({{ section.settings.review_count }} reviews)</span></div>
+      {% if section.settings.description != blank %}<p class="lead">{{ section.settings.description }}</p>{% else %}<div class="rte lead">{{ product.description | strip_html | truncate: 220 }}</div>{% endif %}
+      <div class="product-price">{% render 'price', product:product %}</div>
+      {% form 'product', product, id:'product-form', class:'product-form' %}
+        {% unless product.has_only_default_variant %}
+          <div class="variant-options">
+            {% for option in product.options_with_values %}
+              <fieldset><legend>{{ option.name }}</legend><div class="option-values">
+                {% for value in option.values %}<label><input type="radio" name="options[{{ option.name }}]" value="{{ value | escape }}" {% if option.selected_value == value %}checked{% endif %}><span>{{ value }}</span></label>{% endfor %}
+              </div></fieldset>
+            {% endfor %}
+          </div>
+        {% endunless %}
+        <div class="quantity-row"><label>Quantity</label><button type="button" data-qty-minus>−</button><input id="Quantity" type="number" name="quantity" value="1" min="1"><button type="button" data-qty-plus>+</button></div>
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <div class="product-actions">
+          <button class="btn btn-primary" type="submit" name="add" {% unless product.available %}disabled{% endunless %}>🛒 {{ section.settings.add_label }}</button>
+          <button class="btn btn-outline" type="button" data-buy-now {% unless product.available %}disabled{% endunless %}>⚡ {{ section.settings.buy_label }}</button>
+        </div>
+      {% endform %}
+      <div class="trust-row">
+        <div><b>🛡</b><span><strong>{{ section.settings.trust1_title }}</strong><small>{{ section.settings.trust1_text }}</small></span></div>
+        <div><b>↩</b><span><strong>{{ section.settings.trust2_title }}</strong><small>{{ section.settings.trust2_text }}</small></span></div>
+        <div><b>🚚</b><span><strong>{{ section.settings.trust3_title }}</strong><small>{{ section.settings.trust3_text }}</small></span></div>
+      </div>
+      {% if section.settings.delivery_text != blank %}<div class="delivery-box">🚚 <span>{{ section.settings.delivery_text }}</span></div>{% endif %}
+    </div>
+  </div>
+  <div class="product-tabs">
+    <div class="tab-head"><button class="active" data-tab="description">Product Description</button><button data-tab="specifications">Specifications</button><button data-tab="shipping">Shipping & Returns</button><button data-tab="reviews">Reviews</button><button data-tab="faq">FAQs</button></div>
+    <div class="tab-panel active" data-panel="description"><div class="rte">{{ product.description }}</div></div>
+    <div class="tab-panel" data-panel="specifications"><div class="rte">{{ section.settings.specifications }}</div></div>
+    <div class="tab-panel" data-panel="shipping"><div class="rte">{{ section.settings.shipping }}</div></div>
+    <div class="tab-panel" data-panel="reviews"><div class="rte">{{ section.settings.reviews }}</div></div>
+    <div class="tab-panel" data-panel="faq"><div class="rte">{{ section.settings.faq }}</div></div>
+  </div>
+</section>
+{% schema %}
+{"name":"Main product","settings":[
+{"type":"text","id":"rating","label":"Rating","default":"4.4"},
+{"type":"text","id":"review_count","label":"Review count","default":"2,348"},
+{"type":"textarea","id":"description","label":"Short description"},
+{"type":"text","id":"add_label","label":"Add button","default":"Add to Cart"},
+{"type":"text","id":"buy_label","label":"Buy button","default":"Buy Now"},
+{"type":"text","id":"trust1_title","label":"Trust 1 title","default":"Secure Payments"},{"type":"text","id":"trust1_text","label":"Trust 1 text","default":"100% safe & secure"},
+{"type":"text","id":"trust2_title","label":"Trust 2 title","default":"Easy Returns"},{"type":"text","id":"trust2_text","label":"Trust 2 text","default":"7-day hassle free"},
+{"type":"text","id":"trust3_title","label":"Trust 3 title","default":"Free Shipping"},{"type":"text","id":"trust3_text","label":"Trust 3 text","default":"On orders above ₹499"},
+{"type":"text","id":"delivery_text","label":"Delivery message","default":"Fast delivery available"},
+{"type":"richtext","id":"specifications","label":"Specifications"},{"type":"richtext","id":"shipping","label":"Shipping & returns"},{"type":"richtext","id":"reviews","label":"Reviews content"},{"type":"richtext","id":"faq","label":"FAQ content"}
+],"presets":[{"name":"Main product"}]}
+{% endschema %}

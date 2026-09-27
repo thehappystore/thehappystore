@@ -1,0 +1,16 @@
+{
+  "current": {
+    "settings": {
+      "color_primary": "#ffb400",
+      "color_text": "#111111",
+      "color_background": "#ffffff",
+      "color_surface": "#f5f6f8",
+      "color_accent": "#ff4b16",
+      "radius": 14,
+      "ajax_cart": true,
+      "show_quick_add": true,
+      "sticky_header": false
+    }
+  },
+  "presets": {}
+}

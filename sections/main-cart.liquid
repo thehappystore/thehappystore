@@ -1,0 +1,20 @@
+<section class="page-width cart-page">
+  <h1>Your Cart</h1>
+  {% if cart.item_count == 0 %}
+    <div class="empty-state"><h2>Your cart is empty</h2><a class="btn btn-primary" href="{{ routes.all_products_collection_url }}">Continue Shopping</a></div>
+  {% else %}
+    <form action="{{ routes.cart_url }}" method="post">
+      <div class="cart-list">
+        {% for item in cart.items %}
+          <div class="cart-item">
+            <a href="{{ item.url }}">{{ item.image | image_url: width:220 | image_tag: loading:'lazy', alt:item.title | escape }}</a>
+            <div><h3><a href="{{ item.url }}">{{ item.product.title }}</a></h3><p>{{ item.variant.title }}</p>
+            <div class="quantity-row"><button type="button" data-cart-minus="{{ item.key }}">−</button><input name="updates[]" value="{{ item.quantity }}" type="number" min="0" data-cart-qty="{{ item.key }}"><button type="button" data-cart-plus="{{ item.key }}">+</button></div></div>
+            <strong>{{ item.final_line_price | money }}</strong>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="cart-summary"><h2>Subtotal</h2><strong>{{ cart.total_price | money }}</strong><p>Taxes and shipping calculated at checkout.</p><button class="btn btn-primary" type="submit" name="checkout">Checkout →</button></div>
+    </form>
+  {% endif %}
+</section>

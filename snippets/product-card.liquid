@@ -1,0 +1,15 @@
+<article class="product-card">
+  <a href="{{ product.url }}" class="product-media">
+    {% if product.compare_at_price > product.price %}<span class="discount">{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | round }}% OFF</span>{% endif %}
+    {% if product.featured_image %}{{ product.featured_image | image_url: width: 700 | image_tag: loading:'lazy', alt:product.title | escape }}{% else %}<div class="image-placeholder">No image</div>{% endif %}
+    <button class="wishlist" type="button" aria-label="Add to wishlist" data-wishlist>♡</button>
+  </a>
+  <div class="product-info">
+    <a href="{{ product.url }}"><h3>{{ product.title }}</h3></a>
+    <div class="rating">★★★★★ <span>({{ product.metafields.reviews.rating_count | default: 0 }})</span></div>
+    {% render 'price', product: product %}
+    {% if product.available and settings.show_quick_add %}
+      <button class="quick-add" type="button" data-quick-add data-variant="{{ product.selected_or_first_available_variant.id }}">Add to Cart</button>
+    {% else %}<span class="sold-out">Sold out</span>{% endif %}
+  </div>
+</article>
